@@ -278,6 +278,11 @@ namespace BitQCTool
             window.BlobTextBox.Text = auth.GetBlob();
             window.DoAuthBtn.Click += (sender, e) =>
             {
+                if (string.IsNullOrEmpty(window.SignTextBox.Text) || window.SignTextBox.Text.Length != 512)
+                {
+                    MessageBox.Show("无效的Sign,必须是长度为512的十六进制字符串", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 window.DialogResult = DialogResult.OK;
                 window.Close();
                 auth.SendSign(window.SignTextBox.Text.Trim());
